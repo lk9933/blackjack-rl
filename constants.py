@@ -1,4 +1,7 @@
-# Suits
+"""
+Game-related constants.
+"""
+
 SUITS = [
     "Hearts",
     "Spades",
@@ -6,7 +9,6 @@ SUITS = [
     "Clubs"
 ]
 
-# Ranks
 RANKS = {
     "Ace": [1, 11],
     "Two": [2],
@@ -22,5 +24,3 @@ RANKS = {
     "Queen": [10],
     "King": [10]
 }
-
-

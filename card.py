@@ -1,6 +1,8 @@
-from constants import RANKS
+from constants import RANKS, SUITS
 
 class Card:
+    """Class representing a playing card with a rank and a suit."""
+
     def __init__(self, suit: str, rank: str) -> None:
         self.suit = suit
         self.rank = rank
