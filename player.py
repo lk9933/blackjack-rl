@@ -25,6 +25,9 @@ class Player(CardHolder):
             self.bet *= 2
         else:
             raise Exception("cannot afford bet")
+        
+    def add_to_bankroll(self, amount: float) -> None:
+        self.bankroll += amount
 
     def can_afford_bet(self, bet: float) -> bool:
         return bet <= self.bankroll

@@ -5,9 +5,19 @@ class Hand:
     
     def __init__(self) -> None:
         self.cards = []
+        self.values = {0}
 
     def add_card(self, card: Card) -> None:
         self.cards.append(card)
+        new_values = set()
+        card_values = card.get_value()
+        if not self.values:
+            new_values = card_values
+        else:
+            for existing_value in self.values:
+                for card_value in card_values:
+                    new_values.add(existing_value + card_value)
+        self.values = {val for val in new_values if 0 < val <= 21}
 
     def show_card(self, index: int) -> Card:
         if index < 0 or index >= len(self.cards):
@@ -16,22 +26,19 @@ class Hand:
 
     def clear(self) -> None:
         self.cards = []
+        self.values = {}
 
     def get_values(self) -> set:
-        possible_values = {0}
-        for card in self.cards:
-            new_values = set()
-            card_vals = card.get_value()
-            for elem in possible_values:
-                for val in card_vals:
-                    new_values.add(elem + val)
-            possible_values = new_values
-
-        def validate_value(value: int) -> bool:
-            return not value > 21
-        
-        return set(filter(validate_value, possible_values))
+        return self.values
     
+    def is_bust(self) -> bool:
+        busted = True
+        for value in self.values:
+            if value <= 21 and value > 0:
+                busted = False
+                break
+        return busted
+        
     def __str__(self) -> str:
         return "\n".join(str(card) for card in self.cards)
 

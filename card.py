@@ -7,8 +7,8 @@ class Card:
         self.suit = suit
         self.rank = rank
 
-    def get_value(self) -> list[int]:
-        return RANKS[self.rank]
+    def get_value(self) -> set:
+        return set(RANKS[self.rank])
     
     def __str__(self) -> str:
         return f"{self.rank} of {self.suit}"
