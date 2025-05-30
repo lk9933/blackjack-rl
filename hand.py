@@ -10,7 +10,7 @@ class Hand:
         self.cards.append(card)
 
     def show_card(self, index: int) -> Card:
-        if index > len(self.cards) - 1:
+        if index < 0 or index >= len(self.cards):
             raise IndexError("index outside range")
         return self.cards[index]
 

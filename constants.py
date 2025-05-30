@@ -24,3 +24,7 @@ RANKS = {
     "Queen": [10],
     "King": [10]
 }
+
+BLACKJACK_HAND_VALUE = 21
+DEALER_STAND_VALUE = 17
+BLACKJACK_PAYOUT = 1.5

@@ -11,4 +11,6 @@ class Dealer(CardHolder):
         super().__init__()
 
     def show_first_card(self) -> Card:
-        self.hand.show_card(0)
+        return self.hand.show_card(0)
+    
+    

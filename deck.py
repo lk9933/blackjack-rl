@@ -1,5 +1,6 @@
 import random
-from card import SUITS, RANKS, Card
+from card import Card
+from constants import SUITS, RANKS
 
 class Deck:
     """Class representing a deck(s) of playing cards."""
@@ -14,7 +15,7 @@ class Deck:
             for suit in SUITS:
                 for rank in RANKS.keys():
                     deck.append(Card(suit, rank))
-        return deck
+        self.deck = deck
     
     def shuffle_cards(self) -> None:
         random.shuffle(self.deck)
@@ -24,4 +25,7 @@ class Deck:
     
     def get_size(self) -> int:
         return len(self.deck)
+    
+    def reset_deck(self) -> None:
+        self.deck = self.create_deck()
     
