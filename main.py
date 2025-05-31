@@ -42,15 +42,21 @@ def main():
         else:
             print(f"--- {game.game_state.value.capitalize()} ---")
             print(f"Your hand: {state['player_hand']} (Value: {max(state['player_hand_value'])})")
+            print(f"Dealer's up card: {game.dealer.show_first_card()}")
             print(f"Current bet: ${game.current_bet:.2f}")
             command = input("Enter command: ").strip().lower()
         
         if command.startswith("bet "):
             try:
                 amount = float(command.split()[1])
+                # Check if player can afford bet before placing it
+                if amount > game.player.bankroll:
+                    print(f"Insufficient funds. You only have ${game.player.bankroll:.2f}")
+                    continue
                 if game.place_bet(amount):
                     print(f"Bet placed: ${amount:.2f}")
-                    game.start_round()
+                    if not game.start_round():
+                        print("Failed to start round.")
             except (ValueError, IndexError):
                 print("Invalid bet amount.")
         

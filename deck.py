@@ -7,15 +7,16 @@ class Deck:
 
     def __init__(self, shoe_size: int = 1) -> None:
         self.shoe_size = shoe_size
-        self.deck = self.create_deck()
+        self.deck = []
+        self.create_deck()
+        self.shuffle_cards()  # Always shuffle a new deck
 
     def create_deck(self) -> None:
-        deck = []
+        self.deck = []
         for _ in range(self.shoe_size):
             for suit in SUITS:
                 for rank in RANKS.keys():
-                    deck.append(Card(suit, rank))
-        self.deck = deck
+                    self.deck.append(Card(suit, rank))
     
     def shuffle_cards(self) -> None:
         random.shuffle(self.deck)
@@ -27,5 +28,6 @@ class Deck:
         return len(self.deck)
     
     def reset_deck(self) -> None:
-        self.deck = self.create_deck()
+        self.create_deck()
+        self.shuffle_cards()
     

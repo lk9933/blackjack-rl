@@ -5,19 +5,18 @@ class Hand:
     
     def __init__(self) -> None:
         self.cards = []
-        self.values = {0}
+        self.values = set()
 
     def add_card(self, card: Card) -> None:
         self.cards.append(card)
-        new_values = set()
-        card_values = card.get_value()
-        if not self.values:
-            new_values = card_values
-        else:
-            for existing_value in self.values:
-                for card_value in card_values:
-                    new_values.add(existing_value + card_value)
-        self.values = {val for val in new_values if 0 < val <= 21}
+        self._recalculate_values()
+
+    def _recalculate_values(self) -> None:
+        self.values = {0}
+        for card in self.cards:
+            card_values = card.get_value()
+            self.values = {v + cv for v in self.values for cv in card_values}
+        self.values = {val for val in self.values if val <= 21}
 
     def show_card(self, index: int) -> Card:
         if index < 0 or index >= len(self.cards):
@@ -26,18 +25,13 @@ class Hand:
 
     def clear(self) -> None:
         self.cards = []
-        self.values = {}
+        self.values = set()
 
     def get_values(self) -> set:
         return self.values
     
     def is_bust(self) -> bool:
-        busted = True
-        for value in self.values:
-            if value <= 21 and value > 0:
-                busted = False
-                break
-        return busted
+        return len(self.values) == 0 or max(self.values) <= 0
         
     def __str__(self) -> str:
         return "\n".join(str(card) for card in self.cards)
