@@ -5,7 +5,7 @@ class Hand:
     
     def __init__(self) -> None:
         self.cards = []
-        self.values = set()
+        self.values = {0}
 
     def add_card(self, card: Card) -> None:
         self.cards.append(card)
@@ -25,13 +25,13 @@ class Hand:
 
     def clear(self) -> None:
         self.cards = []
-        self.values = set()
+        self.values = {0}
 
     def get_values(self) -> set:
         return self.values
     
     def is_bust(self) -> bool:
-        return len(self.values) == 0 or max(self.values) <= 0
+        return len(self.values) == 0 or (len(self.values) == 1 and 0 in self.values)
         
     def __str__(self) -> str:
         return "\n".join(str(card) for card in self.cards)

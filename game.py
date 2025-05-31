@@ -56,11 +56,13 @@ class BlackjackGame:
             if BLACKJACK_HAND_VALUE in player_hand_values:
                 print("Both you and the dealer have blackjack. Push!")
                 self.player.add_to_bankroll(self.current_bet)
+                self.player.bet = 0.0
             else:
                 print("Dealer has blackjack!")
-            self.game_state = GameState.BETTING
-            self.current_bet = 0.0
-            return True
+                self.game_state = GameState.BETTING
+                self.current_bet = 0.0
+                self.player.bet = 0.0
+                return True
 
         if BLACKJACK_HAND_VALUE in player_hand_values:
             return self.handle_player_blackjack()
